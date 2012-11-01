@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_simplesaml_auth_user().
+ */
+function gsb_simplesaml_roles_simplesaml_auth_user_presave($edit, $account) {
+  $site_roles = user_roles();
+  $org_gsb_rid = array_search('saml organization gsb', $site_roles);
+  $org_stanford_rid = array_search('saml organization stanford', $site_roles);
+  $roles = $account->roles;
+  if (in_array($edit['simplesaml_attributes']['urn:oid:1.3.6.1.4.1.5923.1.1.1.7'], 'organization:gsb')) {
+    $roles[$org_gsb_rid] = $site_roles[$org_gsb_rid];
+    unset($roles[$org_stanford_rid]);
+  }
+  else {
+    $roles[$org_stanford_rid] = $site_roles[$org_stanford_rid];
+    unset($roles[$org_gsb_rid]);
+  }
+
+  $edit['roles'] = $roles;
+}

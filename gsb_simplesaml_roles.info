@@ -1,0 +1,6 @@
+name = GSB SimpleSAML Roles
+package = GSB
+core = 7.x
+description = "Assigns users to roles based on their attributes."
+
+dependencies[] = simplesaml_auth
