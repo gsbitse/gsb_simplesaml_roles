@@ -1,0 +1,19 @@
+<?php
+
+// Implements hook_install
+function gsb_simplesaml_roles_install() {
+  $current_roles = user_roles();
+  // Create a couple of needed roles.
+  if (!in_array('saml organization gsb', $current_roles)) {
+    $gsb_role = new stdClass();
+    $gsb_role->name = 'saml organization gsb';
+    user_role_save($gsb_role);
+  }
+
+
+  if (!in_array('saml organization stanford', $current_roles)) {
+    $stanford_role = new stdClass();
+    $stanford_role->name = 'saml organization stanford';
+    user_role_save($stanford_role);
+  }
+}
